@@ -1,0 +1,22 @@
+
+<div class="setup-container">
+
+    <div class="pin-container" *ngIf="setupObj" >
+        <div class="pin-char" *ngFor="let pin_char of getPinChar(setupObj.pin)">
+            {{pin_char}}
+        </div>
+    </div>
+
+</div>
+
+<div class="loader-container" *ngIf="data.setupCompleted">
+
+    <div class="circle-loader">
+        <div class="checkmark draw"></div>
+    </div>
+
+    <p class="success-message">
+        Sie haben das Gerät erfolgreich mit Ihrem Account verbunden.
+    </p>
+    
+</div>

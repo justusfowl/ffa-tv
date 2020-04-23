@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { DataService } from './services/data.service';
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
+import { DeviceService } from './services/device.service';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +11,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ffa-tv';
+  title = 'TV';
+
+  constructor(
+    private data : DataService, 
+    private auth : AuthService,
+    private router : Router, 
+    private deviceService : DeviceService
+  ){
+
+    this.data.initService();
+
+    if (this.auth.isAuthorized()){
+      this.router.navigate(["/view"], { replaceUrl: true });
+    }else{
+      this.router.navigate(["/setup"], { replaceUrl: true });
+    }
+
+  }
+
+
 }
