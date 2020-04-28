@@ -4,17 +4,20 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from '../environments/environment';
+
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
 import { MaterialModule } from './material.module';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ViewComponent } from './pages/view/view.component';
 import { SetupComponent } from './pages/setup/setup.component';
 import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
-
-import { environment } from '../environments/environment';
 import { DeviceService } from './services/device.service';
+import { PlayService } from './services/play.service';
+import { DisplayComponent } from './pages/display/display.component';
 
 const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environment.apiBase + ':' + environment.apiPort, options: {} };
 
@@ -23,7 +26,8 @@ const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environm
     AppComponent,
     NotfoundComponent,
     ViewComponent,
-    SetupComponent
+    SetupComponent,
+    DisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,8 @@ const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environm
   providers: [
     DataService, 
     AuthService, 
-    DeviceService
+    DeviceService,
+    PlayService
   ],
   bootstrap: [AppComponent]
 })
