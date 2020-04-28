@@ -26,10 +26,8 @@ export class DisplayComponent implements OnInit, OnDestroy {
     // Get parent ActivatedRoute of this route.
     this.sub = this.route.paramMap.subscribe((params : any) => {
 
-      console.log(params.params.id)
       this.parentRouteId = params.params.id;
 
-      console.log(this.playSrv.activeDisplay)
       this.displayItem = this.playSrv.activeDisplay;
 
     });

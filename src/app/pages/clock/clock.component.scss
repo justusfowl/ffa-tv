@@ -1,0 +1,16 @@
+.clock-container{
+    display: flex; 
+    align-content: center; 
+    align-items: center;
+    justify-content: center;
+    width: 97vw; 
+    height: 98vh;
+
+    .primary-clock{
+        width: 60vw;
+    }
+
+    .aux-clocks{
+        width: 20vw;
+    }
+}

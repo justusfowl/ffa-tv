@@ -1,0 +1,14 @@
+.analog-clock{
+    .face {
+        stroke-width: 2px; stroke: #fff; 
+    }
+    .hour, .min, .sec {
+        stroke-width: 0.3px; fill: #333; stroke: #d1d1d1;
+    }
+    .sec { stroke: #f55; }
+
+    .location{
+        fill: white;
+        font-size: 5px;
+    }
+}

@@ -3,12 +3,13 @@ import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { DeviceService } from './services/device.service';
+import { fader } from './route-animations';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'] 
 })
 export class AppComponent {
   title = 'TV';
@@ -19,6 +20,14 @@ export class AppComponent {
     private router : Router, 
     private deviceService : DeviceService
   ){
+    
+    
+    // override the route reuse strategy
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+    }
+   
+
 
     this.data.initService();
 

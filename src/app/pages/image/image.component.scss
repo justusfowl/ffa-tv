@@ -1,0 +1,30 @@
+.image-container{
+    width: 100vw; 
+    height: 100vh;
+    overflow: hidden;
+
+    @keyframes moveimage {
+        0% {
+
+            transform: scale(1);
+        }
+        50% {
+
+            transform: scale(1.2);
+        }
+        100% {
+
+            transform: scale(1);
+        }
+      }
+
+    img{
+        width: 101vw; 
+        height: 101vh;
+        max-width: 101vw;
+        object-fit: cover;
+        object-position: center;
+        animation: moveimage 60s infinite;
+    }
+
+}

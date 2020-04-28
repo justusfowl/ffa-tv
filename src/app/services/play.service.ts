@@ -13,9 +13,16 @@ export class PlayService {
   _activeIdx : number = -1;
   _activeDisplay: any;
 
+  private _init : boolean = false;
   private hasRun : boolean = false;
 
   private playTimer : any;
+
+  private validComponents : any[] = [
+    "clock", 
+    "image", 
+    "video"
+  ]
 
   constructor(
     private router : Router,
@@ -23,7 +30,9 @@ export class PlayService {
   ) {
 
     this.data.socket.fromEvent('device:playlist').subscribe((data : any) => {
-      console.log(data)
+
+      this._init = true;
+
       this.playlists = data;
       if (data.length > 0){
 
@@ -34,19 +43,29 @@ export class PlayService {
           this.activeDisplay = this.activePlaylist.items[0];
         }
 
-        // this.play();
+       //  this.play();
       }
     });
 
   }
 
   initService(){
-    this.data.socket.emit('device:get-playlist');
+    if (!this._init){
+      this.data.socket.emit('device:get-playlist');
+    }
   }
 
   public navNext(){
-    this.setNextItem(),
-    this.router.navigate(["view/display/" + this.activePlaylist._id + "_" + this._activeIdx]);
+    this.setNextItem();
+    let compRoute;
+
+    if (this.validComponents.indexOf(this.activeDisplay.type.type) > -1){
+      compRoute = this.activeDisplay.type.type;
+    }else{
+      compRoute = "display"
+    }
+
+    this.router.navigate(["view/" + compRoute + "/" + this.activePlaylist._id + "_" + this._activeIdx]);
   }
 
   setNextItem(){
@@ -56,9 +75,11 @@ export class PlayService {
       this.hasRun = true;
       
     }else{
-      let newIdx = this._activeIdx + 1;
-      if (newIdx >= this.activePlaylist.items.length){
+      let newIdx
+      if (this._activeIdx+1 == this.activePlaylist.items.length){
         newIdx = 0;
+      }else{
+        newIdx = this._activeIdx + 1;
       }
 
       this.activeDisplay = this.activePlaylist.items[newIdx];
@@ -67,11 +88,8 @@ export class PlayService {
 
   play(){
 
-    this.setNextItem();   
-
-    this.router.navigate(["view/display/" + this.activePlaylist._id + "_" + this._activeIdx]);
-
     let self = this;
+    self.navNext();
 
     self.playTimer = setTimeout(function(){
      self.play();

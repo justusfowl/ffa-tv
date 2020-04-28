@@ -1,0 +1,22 @@
+<div class="clock-container">
+
+    <div class="primary-clock">
+        <analog-clock
+            [timeZone]="primaryClock.timeZone"
+        ></analog-clock>
+    </div>
+
+    <div class="aux-clocks">
+        <ng-container *ngFor="let c of auxClocks; let i=index;">
+
+                <analog-clock
+                    [timeZone]="c.timeZone"
+                ></analog-clock>
+        
+        </ng-container>
+
+    </div>
+
+</div>
+
+
