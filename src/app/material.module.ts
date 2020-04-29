@@ -2,17 +2,21 @@ import { NgModule } from '@angular/core';
 
 import {
     MatButtonModule, 
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   } from '@angular/material';
   
   @NgModule({
     imports: [
       MatButtonModule, 
-      MatSnackBarModule
+      MatSnackBarModule, 
+      MatProgressSpinnerModule
     ],
     exports: [
       MatButtonModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      MatProgressSpinnerModule
+
     ], 
     providers : [
       

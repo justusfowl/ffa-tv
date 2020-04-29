@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<button (click)="navNextService()">Service</button>
+
+<div class="spinner-wrapper" #globalLoader *ngIf="loadingSrv.isMsgLoading">
+
+    <mat-spinner class="spinner"></mat-spinner>
+
+    <p class="message">
+        {{loadingSrv.messageLoading}}
+    </p>
+    
+</div>
+
+<div [@routeAnimations]="prepareRoute(outlet)" >
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>

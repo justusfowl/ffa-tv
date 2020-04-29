@@ -21,7 +21,8 @@ export class PlayService {
   private validComponents : any[] = [
     "clock", 
     "image", 
-    "video"
+    "video", 
+    "feed"
   ]
 
   constructor(
@@ -43,7 +44,7 @@ export class PlayService {
           this.activeDisplay = this.activePlaylist.items[0];
         }
 
-       //  this.play();
+       // this.play();
       }
     });
 
@@ -65,7 +66,7 @@ export class PlayService {
       compRoute = "display"
     }
 
-    this.router.navigate(["view/" + compRoute + "/" + this.activePlaylist._id + "_" + this._activeIdx]);
+    this.router.navigate(["/" + compRoute + "/" + this.activePlaylist._id + "_" + this._activeIdx]);
   }
 
   setNextItem(){

@@ -34,8 +34,14 @@ export class ClockComponent implements OnInit, OnDestroy {
         this.primaryClock = this.displayItem.clocks[0];
 
         if (this.displayItem.clocks.length > 1){
+          let num = 0;
           this.displayItem.clocks.forEach(element => {
-            this.auxClocks.push(element);
+
+            if (num > 0){
+              this.auxClocks.push(element);
+            }
+
+            num++;
           });
         }
 

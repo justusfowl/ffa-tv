@@ -1,0 +1,23 @@
+.spinner-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .message{
+        color: white;
+        font-size: 40px;
+        margin-top: 40px;
+    }
+
+    .mat-progress-spinner circle, .mat-spinner circle {
+        stroke: white;
+        }
+}
+

@@ -24,6 +24,11 @@ import { ClockComponent } from './pages/clock/clock.component';
 import { AnalogclockComponent } from './components/analogclock/analogclock.component';
 import { ImageComponent } from './pages/image/image.component';
 import { VideoComponent } from './pages/video/video.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { RssfeedComponent } from './pages/rssfeed/rssfeed.component';
+import { LoadingService } from './services/loading.service';
+import { WebcallsService } from './services/webcalls.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environment.apiBase + ':' + environment.apiPort, options: {} };
 
@@ -38,12 +43,15 @@ const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environm
     ClockComponent,
     AnalogclockComponent,
     ImageComponent,
-    VideoComponent
+    VideoComponent,
+    WelcomeComponent,
+    RssfeedComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     MaterialModule, 
     SocketIoModule.forRoot(config),
     // MomentModule,
@@ -53,7 +61,9 @@ const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environm
     DataService, 
     AuthService, 
     DeviceService,
-    PlayService
+    PlayService, 
+    LoadingService, 
+    WebcallsService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 <div class="clock-container">
 
-    <div class="primary-clock">
+    <div class="primary-clock" [class.large]="auxClocks.length < 1">
         <analog-clock
             [timeZone]="primaryClock.timeZone"
         ></analog-clock>

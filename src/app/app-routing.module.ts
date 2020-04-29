@@ -9,19 +9,21 @@ import { DisplayComponent } from './pages/display/display.component';
 import { ClockComponent } from './pages/clock/clock.component';
 import { ImageComponent } from './pages/image/image.component';
 import { VideoComponent } from './pages/video/video.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { RssfeedComponent } from './pages/rssfeed/rssfeed.component';
 
 const routes: Routes = [
-  { path : "view", component: ViewComponent, canActivate: [AuthGuard], 
-    children : [
-      { path: 'display/:id', component: DisplayComponent, data: { animation: 'isRight'} },
-      { path: 'clock/:id', component: ClockComponent, data: { animation: 'isRight' } },
-      { path: 'image/:id', component: ImageComponent, data: { animation: 'isRight' } },
-      { path: 'video/:id', component: VideoComponent, data: { animation: 'isRight' } },
-    ]
-  },
-  { path : "setup", component : SetupComponent },
 
-  { path: '', redirectTo: '/view', pathMatch: 'full' },
+  { path : "view", component: ViewComponent, canActivate: [AuthGuard], children : [ ] },
+  { path: 'welcome', component: WelcomeComponent, data: { animation: 'welcome'} },
+  { path: 'display/:id', component: DisplayComponent, data: { animation: 'display'} },
+  { path: 'clock/:id', component: ClockComponent, data: { animation: 'clock' } },
+  { path: 'image/:id', component: ImageComponent, data: { animation: 'image' } },
+  { path: 'video/:id', component: VideoComponent, data: { animation: 'video' } },
+  { path: 'feed/:id', component: RssfeedComponent, data: { animation: 'rss' } },
+
+  { path : "setup", component : SetupComponent },
+  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: '**', component: NotfoundComponent }
 
 ];
