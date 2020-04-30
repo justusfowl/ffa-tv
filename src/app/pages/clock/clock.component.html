@@ -1,4 +1,4 @@
-<div class="clock-container">
+<div class="clock-container" *ngIf="displayItem">
 
     <div class="primary-clock" [class.large]="auxClocks.length < 1">
         <analog-clock

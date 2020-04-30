@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { DeviceService } from 'src/app/services/device.service';
 import { DataService } from 'src/app/services/data.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-setup',
@@ -16,7 +17,8 @@ export class SetupComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private deviceService : DeviceService, 
-    private data : DataService
+    private data : DataService, 
+    private loadingSrv : LoadingService
   ) {
 
     this.setupSubscription = this.data.setupObjObservable.subscribe(result => {
@@ -31,7 +33,7 @@ export class SetupComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    
+    this.loadingSrv.setMsgLoading(false);
   }
 
   ngOnDestroy(){

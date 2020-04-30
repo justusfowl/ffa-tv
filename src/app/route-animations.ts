@@ -146,15 +146,15 @@ export const slideInAnimation =
         })
       ], { optional: true }),
       query(':enter', [
-        style({ left: '0%', opacity : 0})
+        style({ left: '-100%', opacity : 1})
       ], { optional: true }),
       query(':leave', animateChild(), { optional: true }),
       group([
         query(':leave', [
-          animate('1000ms ease-out', style({ left: '0%', opacity : 0}))
+          animate('1200ms ease-in-out', style({ left: '100%', opacity : 1}))
         ], { optional: true }),
         query(':enter', [
-          animate('1000ms ease-out', style({ left: '0%', opacity : 1}))
+          animate('1200ms ease-in-out', style({ left: '0%', opacity : 1}))
         ], { optional: true })
       ]),
       query(':enter', animateChild(), { optional: true }),

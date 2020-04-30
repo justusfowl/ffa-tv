@@ -29,6 +29,7 @@ import { RssfeedComponent } from './pages/rssfeed/rssfeed.component';
 import { LoadingService } from './services/loading.service';
 import { WebcallsService } from './services/webcalls.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RelativeTimePipe } from './pipes/relative-time.pipe';
 
 const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environment.apiBase + ':' + environment.apiPort, options: {} };
 
@@ -45,7 +46,8 @@ const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environm
     ImageComponent,
     VideoComponent,
     WelcomeComponent,
-    RssfeedComponent
+    RssfeedComponent,
+    RelativeTimePipe
   ],
   imports: [
     BrowserModule,

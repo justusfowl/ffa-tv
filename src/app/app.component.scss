@@ -1,19 +1,32 @@
+body{
+    overflow: hidden;
+}
+
 .spinner-wrapper{
+    z-index: 999;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 50%;
+    left: 50%;
+    width: 150vw;
+    height: 150vw;
+    max-width: 150vw;
+    max-height: 150vw;
+    border-radius: 50%;
     background-color: black;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transition: 1s cubic-bezier(.05, .95, 0, 1);
+    transform: translate(-50%, -50%);
+    overflow: hidden;
 
     .message{
         color: white;
         font-size: 40px;
         margin-top: 40px;
+        max-width: 70vw;
+        text-align: center;
     }
 
     .mat-progress-spinner circle, .mat-spinner circle {
@@ -21,3 +34,23 @@
         }
 }
 
+.spinner-wrapper.hide{
+    width: 500vw;
+    height: 50vw;
+    max-width: 500vw;
+    max-height: 0vw;
+    min-width: 50vw;
+    min-height: 0vw;
+
+    .spinner{
+        opacity:0;
+    }
+}
+
+
+#test{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 9999;
+}

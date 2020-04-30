@@ -1,0 +1,51 @@
+
+
+<div class="feed-page" *ngIf="displayItem">
+
+    <div id="feed-container" class="feed-container">
+
+        <div class="item ui-box top-leftStart-burst" *ngFor="let f of items;let i=index;" [class.active]="i == activeIdx">
+
+            <div class="headline">
+                <p class="main">
+                    {{f.title}} 
+                </p>
+                <p  class="published">
+                    {{f.date | relativeTime}} <span *ngIf="feed.origin">auf {{feed.origin}}</span> 
+                </p>
+                    
+            </div>
+
+            <div class="content">
+
+                <div class="text">
+                    {{f.text}}{{getIfTextEnds(f.text)}}
+                </div>
+
+                <img *ngIf="f.imageSrc" [src]="f.imageSrc">
+
+            </div>
+            <div class="footer">
+
+                <div class="creator">
+                    {{f.creator}}
+                </div>
+
+                <div class="categories">
+                    <span *ngFor="let c of f.categories">
+                        #{{c}}
+                    </span>
+                </div>
+
+            </div>
+
+            
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<button id="test2" (click)="next()">NEXT</button>

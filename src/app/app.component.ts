@@ -42,9 +42,10 @@ export class AppComponent implements AfterViewInit {
     this.data.initService();
 
     if (this.auth.isAuthorized()){
-      this.router.navigate(["/welcome"], { replaceUrl: true });
-      this.playSrv.initService();
+      // this.router.navigate(["/welcome"], { replaceUrl: true });
+      this.playSrv.initService(); 
     }else{
+      
       this.router.navigate(["/setup"], { replaceUrl: true });
     }
 
@@ -54,11 +55,6 @@ export class AppComponent implements AfterViewInit {
 
     this.loadingSrv.setGlobalLoader(this.globalLoader);   
     this.loadingSrv.setMsgLoading(true, "Bitte warten Sie, wir laden den Bildschirm");
-
-    let self = this; 
-    setTimeout(function(){
-      self.loadingSrv.setMsgLoading(false);
-    }, 1000 )
   }
 
   prepareRoute(outlet: RouterOutlet) {
@@ -72,5 +68,6 @@ export class AppComponent implements AfterViewInit {
   navNextService(){
     this.playSrv.navNext();
   }
+
 
 }

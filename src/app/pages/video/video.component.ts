@@ -29,14 +29,20 @@ export class VideoComponent implements OnInit {
     // Get parent ActivatedRoute of this route.
     this.sub = this.route.paramMap.subscribe((params : any) => {
 
-      this.displayItem = this.playSrv.activeDisplay;
+      if (!this.playSrv.activeDisplay){
+        return;
+      }
+
+      if (this.playSrv.activeDisplay.type.type == 'video'){
+        this.displayItem = this.playSrv.activeDisplay;
+      }
 
     });
 
   }
 
   ngAfterViewInit(){
-    this.videoObj.nativeElement.play();
+    // this.videoObj.nativeElement.play();
   }
 
   ngOnDestroy() {

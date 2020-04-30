@@ -27,24 +27,30 @@ export class ClockComponent implements OnInit, OnDestroy {
     // Get parent ActivatedRoute of this route.
     this.sub = this.route.paramMap.subscribe((params : any) => {
 
-      this.displayItem = this.playSrv.activeDisplay;
+      if (!this.playSrv.activeDisplay){
+        return;
+      }
 
-      if (this.displayItem.clocks.length > 0){
+      if (this.playSrv.activeDisplay.type.type == 'clock'){
+        this.displayItem = this.playSrv.activeDisplay;
 
-        this.primaryClock = this.displayItem.clocks[0];
-
-        if (this.displayItem.clocks.length > 1){
-          let num = 0;
-          this.displayItem.clocks.forEach(element => {
-
-            if (num > 0){
-              this.auxClocks.push(element);
-            }
-
-            num++;
-          });
+        if (this.displayItem.clocks.length > 0){
+  
+          this.primaryClock = this.displayItem.clocks[0];
+  
+          if (this.displayItem.clocks.length > 1){
+            let num = 0;
+            this.displayItem.clocks.forEach(element => {
+  
+              if (num > 0){
+                this.auxClocks.push(element);
+              }
+  
+              num++;
+            });
+          }
+  
         }
-
       }
 
     });

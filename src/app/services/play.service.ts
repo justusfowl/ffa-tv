@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from './data.service';
+import { LoadingService } from './loading.service';
+declare var RSSParser: any;
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +29,12 @@ export class PlayService {
 
   constructor(
     private router : Router,
-    private data : DataService
-  ) {
+    private data : DataService, 
+    private loadingSrv : LoadingService
+  ) { 
 
-    this.data.socket.fromEvent('device:playlist').subscribe((data : any) => {
+    this.data.socket.fromEvent('device:playlist').subscribe(async (data : any) => {
+      let self = this;
 
       this._init = true;
 
@@ -44,7 +48,17 @@ export class PlayService {
           this.activeDisplay = this.activePlaylist.items[0];
         }
 
-       // this.play();
+        await this.loadPlaylistItems().then(result => {
+          this.play();
+          self.loadingSrv.setMsgLoading(true, "Fertig!");
+          setTimeout(function(){
+            self.loadingSrv.setMsgLoading(false);
+          }, 2000);
+        }).catch(err => {
+          console.error(err);
+        });
+
+        
       }
     });
 
@@ -144,5 +158,139 @@ export class PlayService {
     this._activeDisplay = item;
   }
 
+
+  async getBase64FromUrl(imageUrl) {
+
+    var res = await fetch(imageUrl);
+    var blob = await res.blob();
+  
+    return new Promise((resolve, reject) => {
+      var reader  = new FileReader();
+
+      reader.addEventListener("load", function () {
+          resolve(reader.result);
+      }, false);
+  
+      reader.onerror = () => {
+        return reject(this);
+      };
+      reader.readAsDataURL(blob);
+    })
+  }
+
+  async parseFeed(RSS_URL){
+    let self = this;
+    const CORS_PROXY = "https://cors-anywhere.herokuapp.com/"
+    let parser = new RSSParser();
+    let feed = await parser.parseURL(CORS_PROXY + RSS_URL);
+    
+    
+
+    if (!feed.origin){
+      try{
+        let origin = this.getDomainFromUrl(feed.link);
+        feed["origin"] = origin;
+      }catch(err){
+        feed["origin"] = null;
+      }
+    }
+
+    feed.items.forEach(element => {
+
+      try{
+
+        if (element.enclosure){
+          if (element.enclosure.url){
+            element["imageSrc"] = element.enclosure.url;
+          }
+        }else if (element.content){
+          var doc = new DOMParser().parseFromString(element.content, "text/xml");
+          let images = doc.getElementsByTagName("img");
+    
+          for (var i=0; i<images.length; i++){
+            element["imageSrc"] = images[i].getAttribute("src");
+          }
+        }
+       
+      }catch(err){
+        element["imageSrc"] = null;
+      }
+     
+      try{
+        let contentParsed = new DOMParser().parseFromString(element.content, "text/html");
+        element["text"] = (contentParsed.children[0] as any).innerText;
+      }catch(err){
+        element["text"] = null;
+      }  
+      
+      if (!element.date){
+        let fields = Object.keys(element);
+        let dateFieldIdx = fields.findIndex(x => x.toLowerCase().includes("date")); 
+
+        if (dateFieldIdx > -1){
+          element["date"] = new Date(element[fields[dateFieldIdx]]);
+        }
+      }
+
+      
+    });
+
+    feed.activeIdx = 0;
+
+    return feed;
+
+  }
+
+  getDomainFromUrl(url) {
+    var result
+    var match
+    if (match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im)) {
+        result = match[1]
+        if (match = result.match(/^[^\.]+\.(.+\..+)$/)) {
+            result = match[1]
+        }
+    }
+    return result
+  }
+
+  loadPlaylistItems(){ 
+    let self = this;
+    return new Promise(async (resolve, reject) => { 
+      try{
+
+         const allItemPromises =  this.activePlaylist.items.map(async item => {
+    
+          if (item.type.type == 'image'){
+            if (item.imageFullPath){
+              item.imageFullPath = await self.getBase64FromUrl(item.imageFullPath);
+            }
+          }else if (item.type.type == 'video'){
+            if (item.videoFullPath){
+              item.videoFullPath = await self.getBase64FromUrl(item.videoFullPath);
+            }
+          }else if (item.type.type == 'feed'){
+            if (item.RSSUrl){
+              console.log(item.RSSUrl);
+              item.feed = await self.parseFeed(item.RSSUrl);
+            }else{
+              console.error(new Error("No RSS Url defined"))
+            }
+            
+          }
+
+          return item
+          
+        });
+        
+        this.activePlaylist.items = await Promise.all(allItemPromises);
+
+        resolve(true);
+
+      }catch(err){
+        reject(err);
+      }
+     
+    })
+  }
 
 }

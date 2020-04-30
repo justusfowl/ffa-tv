@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { DeviceService } from './device.service';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,8 @@ export class DataService {
     private _snackBar : MatSnackBar, 
     private auth : AuthService, 
     private deviceService : DeviceService, 
-    private router : Router
+    private router : Router, 
+    private loadingSrv : LoadingService
   ) {
     this.apiUrl = environment.apiProtocol + '://' + environment.apiBase + ':' + environment.apiPort + "/api/v" + environment.apiVersion;
 
@@ -53,6 +55,7 @@ export class DataService {
 
     this.socket.fromEvent('disconnect').subscribe(data => {
       console.log("disconnected");
+      this.loadingSrv.setOnlineStatus(false);
     });
 
     this.socket.fromEvent('device:remove').subscribe(data => {
@@ -67,6 +70,9 @@ export class DataService {
 
     // connect in setup-mode
     this.socket.fromEvent('connect').subscribe(data => {
+
+      this.loadingSrv.setOnlineStatus(true);
+
       let body; 
       if (this.auth.isAuthorized()){
         console.log("### Connecting with token....###")

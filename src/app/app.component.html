@@ -1,10 +1,10 @@
-<button (click)="navNextService()">Service</button>
+<button (click)="navNextService()" id="test">Service</button>
 
-<div class="spinner-wrapper" #globalLoader *ngIf="loadingSrv.isMsgLoading">
+<div class="spinner-wrapper" #globalLoader [class.hide]="!loadingSrv.isMsgLoading">
 
-    <mat-spinner class="spinner"></mat-spinner>
+    <mat-spinner class="spinner" [class.hide]="!loadingSrv.isMsgLoading"></mat-spinner>
 
-    <p class="message">
+    <p class="message" >
         {{loadingSrv.messageLoading}}
     </p>
     
