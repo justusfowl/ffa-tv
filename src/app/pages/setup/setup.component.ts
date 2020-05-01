@@ -17,7 +17,7 @@ export class SetupComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private deviceService : DeviceService, 
-    private data : DataService, 
+    public data : DataService, 
     private loadingSrv : LoadingService
   ) {
 
