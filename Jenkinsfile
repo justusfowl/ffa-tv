@@ -23,7 +23,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'rm -rf /ffa-tv/*'
-                sh 'cp -rf www/* /ffa-tv'
+                sh 'cp -rf dist/ffa-tv/* /ffa-tv'
             }
         }
     }
