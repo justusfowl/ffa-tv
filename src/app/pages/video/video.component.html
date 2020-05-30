@@ -1,5 +1,5 @@
 <div class="video-container" *ngIf="displayItem">
-    <video #videoObj autoplay loop>
+    <video #videoObj autoplay loop [muted]="mute">
         <source [src]="displayItem.videoFullPath">
         Your browser does not support the video tag.
     </video>

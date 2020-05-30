@@ -1,0 +1,46 @@
+<div class="weather-container">
+
+    <img [src]="getWeatherBackground()">
+
+    <ng-container *ngIf="displayItem">
+            <div class="head current">
+                <div class="temp">
+                    {{displayItem.weather.current.temp | number:'1.0-0' }} °C
+                </div>
+                <div class="description">
+                    {{displayItem.weather.current.weather[0].description}}
+                </div>
+            </div>
+        
+            <div class="foot">
+                <div class="details">
+                    <div class="location">
+                        {{displayItem.location.name}}
+                    </div>
+                    <div class="time">
+                        {{getTodayDay()}}, {{getTime(currentTime)}} 
+                    </div>
+                </div>
+        
+                <div class="forecast">
+                    <div class="forecast-item" *ngFor="let fc of displayItem.weather.forecasts; let i=index;">
+        
+                        <i [class]="getIconClass(fc)"></i>
+        
+                        <div class="temperature">
+                            {{fc.temp.day | number:'1.0-0'}} °C
+                        </div>
+                        <div class="day">
+                            {{getDay(fc)}}
+                        </div>
+                        <div class="date">
+                            {{getDayNumber(fc)}}. {{getMonth(fc)}}
+                        </div>
+        
+                    </div>
+                </div>
+        
+            </div>
+    </ng-container>
+    
+</div>

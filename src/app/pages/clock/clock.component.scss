@@ -1,3 +1,9 @@
+.clock-wrapper{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #e2e2e2 0%,#dbdbdb 37%,#d1d1d1 66%,#fefefe 100%);
+}
+
 .clock-container{
     display: flex; 
     align-content: center; 
@@ -6,8 +12,9 @@
     width: 97vw; 
     height: 98vh;
 
+
     .primary-clock{
-        width: 60vw;
+        width: 55vw;
     }
 
     .primary-clock.large{
@@ -21,3 +28,4 @@
         width: 20vw;
     }
 }
+

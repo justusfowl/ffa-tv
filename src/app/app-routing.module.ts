@@ -11,6 +11,8 @@ import { ImageComponent } from './pages/image/image.component';
 import { VideoComponent } from './pages/video/video.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { RssfeedComponent } from './pages/rssfeed/rssfeed.component';
+import { QuoteComponent } from './pages/quote/quote.component';
+import { WeatherComponent } from './pages/weather/weather.component';
 
 const routes: Routes = [
 
@@ -21,6 +23,8 @@ const routes: Routes = [
   { path: 'image/:id', component: ImageComponent, data: { animation: 'image' } },
   { path: 'video/:id', component: VideoComponent, data: { animation: 'video' } },
   { path: 'feed/:id', component: RssfeedComponent, data: { animation: 'rss' } },
+  { path: 'quote/:id', component: QuoteComponent, data: { animation: 'quote' } },
+  { path: 'weather/:id', component: WeatherComponent, data: { animation: 'quote' } },
 
   { path : "setup", component : SetupComponent },
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },

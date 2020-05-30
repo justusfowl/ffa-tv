@@ -12,7 +12,7 @@ import { LoadingService } from './services/loading.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'], 
-  animations : [slideInAnimation],
+  animations : [fader],
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit {
@@ -30,15 +30,6 @@ export class AppComponent implements AfterViewInit {
     public loadingSrv : LoadingService
   ){
     
-    /*
-    // override the route reuse strategy
-    this.router.routeReuseStrategy.shouldReuseRoute = function(){
-      return false;
-    }
-    */
-   
-
-
     this.data.initService();
 
     if (this.auth.isAuthorized()){

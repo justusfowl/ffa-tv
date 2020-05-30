@@ -1,0 +1,94 @@
+.weather-container{
+    height: 100vh; 
+    width: 100vw;
+
+    position: relative;
+
+    
+    @keyframes moveimage {
+        0% {
+
+            transform: translate(-2vw, -2vh);
+        }
+        50% {
+
+            transform: translate(2vw, +2vh);
+        }
+        100% {
+
+            transform: translate(-2vw, -2vh);
+        }
+      }
+
+    img{
+        position: absolute; 
+        width: 104vw; 
+        height: 104vh;
+        object-fit: cover;
+        object-position: center;
+        animation: moveimage 60s infinite;
+        z-index: -1;
+        left: -2vw;
+        top: -2vh;
+    }
+
+    .head{
+        height: 40%;
+        padding: 3rem;
+
+        .temp{
+            font-size: 10rem;
+            color: white;
+        }
+
+        .description{
+            font-size: 4rem;
+            color: white;
+        }
+    }
+
+    .foot{
+        
+        padding: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .forecast{
+            display: flex;
+ 
+            .forecast-item{
+                font-size: 2.5rem;
+                color: white;
+                width: 251px;
+                display: flex;
+                flex-direction: column;
+
+                .temperature{
+                    font-size: 4rem;
+                }
+
+                .day, 
+                .date{
+                    font-size: 1.5rem;
+                }
+
+                i{
+                    font-size: 8rem;
+                }
+
+            }
+        }
+
+        .location{
+            font-size: 4rem;
+            color: white;
+        }
+        
+        .time{
+            font-size: 1.5rem;
+            color: white;
+        }
+    }
+
+}

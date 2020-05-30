@@ -30,6 +30,10 @@ import { LoadingService } from './services/loading.service';
 import { WebcallsService } from './services/webcalls.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RelativeTimePipe } from './pipes/relative-time.pipe';
+import { QuoteComponent } from './pages/quote/quote.component';
+import { WeatherComponent } from './pages/weather/weather.component';
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomReuseStrategy } from './custome.route.strategy';
 
 const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environment.apiBase + ':' + environment.apiPort, options: {} };
 
@@ -47,8 +51,10 @@ const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environm
     VideoComponent,
     WelcomeComponent,
     RssfeedComponent,
-    RelativeTimePipe
-  ],
+    RelativeTimePipe,
+    QuoteComponent,
+    WeatherComponent
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -60,6 +66,7 @@ const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environm
     // MomentTimezoneModule
   ],
   providers: [
+    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
     DataService, 
     AuthService, 
     DeviceService,

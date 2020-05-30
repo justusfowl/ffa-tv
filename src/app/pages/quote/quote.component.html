@@ -1,0 +1,19 @@
+
+<div class="quote-container" [style.background-image]="'url(' + imageUrl + ')'">
+    <div class="wrapper">
+        <div class="block-quote">
+
+            <div class="quote"  [id]="quoteContainerId">
+                
+            </div>
+
+            <ng-container  *ngIf="displayItem.quote">
+                <div class="author" *ngIf="displayItem.quote.author">
+                    {{displayItem.quote.author}}
+                </div>
+            </ng-container>
+           
+            
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { PlayService } from 'src/app/services/play.service';
 import { ActivatedRoute } from '@angular/router';
 import { WebcallsService } from 'src/app/services/webcalls.service';
@@ -11,7 +11,7 @@ declare var RSSParser: any;
   templateUrl: './rssfeed.component.html',
   styleUrls: ['./rssfeed.component.scss']
 })
-export class RssfeedComponent implements OnInit, AfterViewInit {
+export class RssfeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
   sub : any;
   displayItem : any; 
@@ -40,6 +40,9 @@ export class RssfeedComponent implements OnInit, AfterViewInit {
     this.sub = this.route.paramMap.subscribe((params : any) => {
 
       if (!this.playSrv.activeDisplay){
+        if (!this.playSrv.isInit){
+          this.playSrv.goToHome();
+        }
         return;
       }
 

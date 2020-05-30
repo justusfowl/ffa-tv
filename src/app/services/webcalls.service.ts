@@ -15,7 +15,7 @@ export class WebcallsService {
     private loadingSrv : LoadingService
   ) { }
 
-  get(url, paramOptions?, enableLoader=true){  
+  get(url, paramOptions?, headers?, enableLoader=true){  
 
     this.loading = true;
     if (enableLoader){
@@ -26,7 +26,7 @@ export class WebcallsService {
 
     return new Promise(function(resolve, reject) {
       
-      api.http.get(url, {params: paramOptions}).subscribe(
+      api.http.get(url, {params: paramOptions, headers: headers}).subscribe(
         (data: any) => {
           
           api.loading = false;

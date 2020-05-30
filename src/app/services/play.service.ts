@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from './data.service';
 import { LoadingService } from './loading.service';
+import { WebcallsService } from './webcalls.service';
+import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
+ 
 declare var RSSParser: any;
 
 @Injectable({
@@ -24,13 +28,17 @@ export class PlayService {
     "clock", 
     "image", 
     "video", 
-    "feed"
+    "feed", 
+    "quote", 
+    "weather"
   ]
 
   constructor(
     private router : Router,
     private data : DataService, 
-    private loadingSrv : LoadingService
+    private loadingSrv : LoadingService, 
+    private webcalls : WebcallsService, 
+    private auth : AuthService
   ) { 
 
     this.data.socket.fromEvent('device:playlist').subscribe(async (data : any) => {
@@ -49,6 +57,7 @@ export class PlayService {
         }
 
         await this.loadPlaylistItems().then(result => {
+          console.log(result);
           this.play();
           self.loadingSrv.setMsgLoading(true, "Fertig!");
           setTimeout(function(){
@@ -57,7 +66,6 @@ export class PlayService {
         }).catch(err => {
           console.error(err);
         });
-
         
       }
     });
@@ -70,7 +78,12 @@ export class PlayService {
     }
   }
 
+  get isInit(){
+    return this._init;
+  }
+
   public navNext(){
+
     this.setNextItem();
     let compRoute;
 
@@ -130,6 +143,10 @@ export class PlayService {
       this.playTimer.clear()
       this.playTimer = null;
     }
+  }
+
+  goToHome(){
+    this.router.navigate(["/"]);
   }
 
   public get playlists(){
@@ -253,6 +270,7 @@ export class PlayService {
     return result
   }
 
+
   loadPlaylistItems(){ 
     let self = this;
     return new Promise(async (resolve, reject) => { 
@@ -276,6 +294,19 @@ export class PlayService {
               console.error(new Error("No RSS Url defined"))
             }
             
+          }else if (item.type.type == 'weather'){
+            let coord = item.location.coord;
+            if (coord){
+              
+              let endpoint = environment.apiProtocol + '://' + environment.apiBase + ':' + environment.apiPort + `/api/v${environment.apiVersion}/general/content/tv/weather?lon=${coord.lon}&lat=${coord.lat}`
+              await this.webcalls.get(endpoint, {}, {"authorization" : `Bearer ${this.auth.token}`}).then(result => {
+                console.log(result);
+                item.weather = result;
+              }).catch(err => {
+                console.error(err);
+                console.error(new Error("Error fetching weather data."))
+              })
+            }
           }
 
           return item

@@ -1,15 +1,20 @@
 .analog-clock{
 
     .face {
-        stroke-width: 2px; stroke: #fff; 
+        stroke-width: 0.4px; stroke: rgb(129, 129, 129); 
+        fill: white;
     }
     .hour, .min, .sec {
-        stroke-width: 0.3px; fill: #333; stroke: #d1d1d1;
+        stroke-width: 0.3px; fill: rgb(0, 0, 0); stroke: #000000;
     }
     .sec { stroke: #f55; }
 
+    .knob{
+        fill: #f55;
+    }
+
     .location{
-        fill: white;
+        fill: black;
         font-size: 5px;
     }
 }

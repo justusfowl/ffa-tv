@@ -1,22 +1,24 @@
-<div class="clock-container" *ngIf="displayItem">
 
-    <div class="primary-clock" [class.large]="auxClocks.length < 1">
-        <analog-clock
-            [timeZone]="primaryClock.timeZone"
-        ></analog-clock>
+<div class="clock-wrapper">
+
+    <div class="clock-container" *ngIf="displayItem">
+
+        <div class="primary-clock" [class.large]="auxClocks.length < 1">
+            <analog-clock
+                [timeZone]="primaryClock.timeZone"
+            ></analog-clock>
+        </div>
+    
+        <div class="aux-clocks">
+            <ng-container *ngFor="let c of auxClocks; let i=index;">
+    
+                    <analog-clock
+                        [timeZone]="c.timeZone"
+                    ></analog-clock>
+            
+            </ng-container>
+    
+        </div>
+    
     </div>
-
-    <div class="aux-clocks">
-        <ng-container *ngFor="let c of auxClocks; let i=index;">
-
-                <analog-clock
-                    [timeZone]="c.timeZone"
-                ></analog-clock>
-        
-        </ng-container>
-
-    </div>
-
 </div>
-
-

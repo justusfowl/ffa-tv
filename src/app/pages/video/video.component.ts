@@ -13,9 +13,7 @@ export class VideoComponent implements OnInit {
 
   sub : any;
   displayItem : any; 
-
-  primaryClock: any; 
-  auxClocks : any[] = [];
+  mute : boolean = false;
 
   constructor(
     private playSrv : PlayService, 
@@ -30,11 +28,22 @@ export class VideoComponent implements OnInit {
     this.sub = this.route.paramMap.subscribe((params : any) => {
 
       if (!this.playSrv.activeDisplay){
+        if (!this.playSrv.isInit){
+          this.playSrv.goToHome();
+        }
         return;
       }
 
       if (this.playSrv.activeDisplay.type.type == 'video'){
         this.displayItem = this.playSrv.activeDisplay;
+
+        if (typeof(this.displayItem.mute) == "undefined"){
+          this.mute = true;
+        }else{
+          this.mute = this.displayItem.mute;
+        }
+
+        console.log(this.mute);
       }
 
     });

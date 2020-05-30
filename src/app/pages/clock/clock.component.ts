@@ -28,6 +28,9 @@ export class ClockComponent implements OnInit, OnDestroy {
     this.sub = this.route.paramMap.subscribe((params : any) => {
 
       if (!this.playSrv.activeDisplay){
+        if (!this.playSrv.isInit){
+          this.playSrv.goToHome();
+        }
         return;
       }
 

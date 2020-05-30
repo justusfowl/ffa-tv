@@ -26,8 +26,16 @@ export class ImageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
 
+
     // Get parent ActivatedRoute of this route.
     this.sub = this.route.paramMap.subscribe((params : any) => {
+
+      if (!this.playSrv.activeDisplay){
+        if (!this.playSrv.isInit){
+          this.playSrv.goToHome();
+        }
+        return;
+      }
 
       this.displayItem = this.playSrv.activeDisplay;
 
