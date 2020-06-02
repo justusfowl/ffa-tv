@@ -26,14 +26,14 @@
         height: 104vh;
         object-fit: cover;
         object-position: center;
-        animation: moveimage 60s infinite;
+        animation: moveimage 40s infinite;
         z-index: -1;
         left: -2vw;
         top: -2vh;
     }
 
     .head{
-        height: 40%;
+        height: 50vh;
         padding: 3rem;
 
         .temp{

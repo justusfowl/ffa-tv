@@ -25,7 +25,7 @@ export class AnalogclockComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.location = this.timeZone.substring(this.timeZone.indexOf("/")+1, this.timeZone.length);
     this.location = this.location.replace(/_/g, " ");
-    this.m = moment
+    this.m = moment;
    
     this.tick();
 

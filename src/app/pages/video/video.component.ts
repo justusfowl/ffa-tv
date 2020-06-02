@@ -11,6 +11,8 @@ export class VideoComponent implements OnInit {
 
   @ViewChild('videoObj', {static: true}) videoObj: ElementRef;
 
+  flagShowText : boolean = false;
+
   sub : any;
   displayItem : any; 
   mute : boolean = false;
@@ -44,14 +46,32 @@ export class VideoComponent implements OnInit {
         }
 
         console.log(this.mute);
+
+        this.showText();
       }
 
     });
 
   }
 
+  getBackgroundColor(){
+    if (this.displayItem.backgroundColor){
+      return this.displayItem.backgroundColor;
+    }else{
+      return "#fff";
+    }
+  }
+
   ngAfterViewInit(){
     // this.videoObj.nativeElement.play();
+  }
+
+  showText(){
+    let self = this; 
+    setTimeout(function(){
+      self.flagShowText = true;
+    }, 2000)
+    
   }
 
   ngOnDestroy() {

@@ -3,4 +3,19 @@
         <source [src]="displayItem.videoFullPath">
         Your browser does not support the video tag.
     </video>
+
+    
+    <div class="text" [style.background]="getBackgroundColor()" [class.show]="flagShowText" *ngIf="displayItem.title || displayItem.subtitle">
+        <div class="title" *ngIf="displayItem.title">
+            {{displayItem.title}}
+        </div>
+        <div class="subtitle" *ngIf="displayItem.subtitle">
+            {{displayItem.subtitle}}
+        </div>
+    </div>
+
+    <div class="source" *ngIf="displayItem.source">
+        {{displayItem.source}}
+    </div>
+    
 </div>
