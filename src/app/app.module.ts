@@ -34,6 +34,7 @@ import { QuoteComponent } from './pages/quote/quote.component';
 import { WeatherComponent } from './pages/weather/weather.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './custome.route.strategy';
+import { BulletslideComponent } from './pages/bulletslide/bulletslide.component';
 
 const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environment.apiBase + ':' + environment.apiPort, options: {} };
 
@@ -53,7 +54,8 @@ const config: SocketIoConfig = { url: environment.apiProtocol + '://' + environm
     RssfeedComponent,
     RelativeTimePipe,
     QuoteComponent,
-    WeatherComponent
+    WeatherComponent,
+    BulletslideComponent
     ],
   imports: [
     BrowserModule,

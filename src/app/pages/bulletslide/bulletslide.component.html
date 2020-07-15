@@ -1,0 +1,15 @@
+
+<div class="bulletslide-container">
+    <div class="container">
+        <div class="row">
+            <div [id]="'title_'+ componentUUID" class="col-12 slide-title">
+               <!-- {{displayItem?.slide.title}} --> 
+            </div>
+        </div>
+        <div class="row">
+            <div [id]="'bullet_'+ componentUUID +'_'+i" class="col-6 bullet" *ngFor="let b of displayItem?.slide.bullets; let i=index;">
+               <!-- {{b.text}} -->
+            </div>
+        </div>
+    </div>
+</div>

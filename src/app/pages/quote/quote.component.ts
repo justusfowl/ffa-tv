@@ -44,8 +44,6 @@ export class QuoteComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.displayItem = this.playSrv.activeDisplay;
 
-        console.log(this.displayItem);
-
         if (!this.displayItem.quote){
           this.displayItem.quote = {
             "quote" : "Willkommen"

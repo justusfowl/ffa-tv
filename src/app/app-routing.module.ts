@@ -13,6 +13,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { RssfeedComponent } from './pages/rssfeed/rssfeed.component';
 import { QuoteComponent } from './pages/quote/quote.component';
 import { WeatherComponent } from './pages/weather/weather.component';
+import { BulletslideComponent } from './pages/bulletslide/bulletslide.component';
 
 const routes: Routes = [
 
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: 'feed/:id', component: RssfeedComponent, data: { animation: 'rss' } },
   { path: 'quote/:id', component: QuoteComponent, data: { animation: 'quote' } },
   { path: 'weather/:id', component: WeatherComponent, data: { animation: 'quote' } },
+  
+  { path: 'bulletslide/:id', component: BulletslideComponent, data: { animation: 'bulletslide' } },
 
   { path : "setup", component : SetupComponent },
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },

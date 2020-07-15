@@ -5,13 +5,16 @@ import { LoadingService } from './loading.service';
 import { WebcallsService } from './webcalls.service';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
- 
+import * as moment from 'moment';
+
 declare var RSSParser: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayService {
+
+  lastTimeRefreshed : any;
 
   _playlists : any[] = [];
   _activePlaylist : any;
@@ -24,13 +27,19 @@ export class PlayService {
 
   private playTimer : any;
 
+  loopCheckForRefresh : any;
+
+  private reloadWhenOlderThanMinutes : number = 720; // reload TV when content is older than 12hrs. 
+  private checkForRefreshEverySeconds : number = 60;
+
   private validComponents : any[] = [
     "clock", 
     "image", 
     "video", 
     "feed", 
     "quote", 
-    "weather"
+    "weather", 
+    "bulletslide"
   ]
 
   constructor(
@@ -60,9 +69,14 @@ export class PlayService {
           console.log(result);
           this.play();
           self.loadingSrv.setMsgLoading(true, "Fertig!");
+          self.lastTimeRefreshed = moment();
+
+          console.log(self.lastTimeRefreshed);
+
           setTimeout(function(){
             self.loadingSrv.setMsgLoading(false);
           }, 2000);
+
         }).catch(err => {
           console.error(err);
         });
@@ -70,10 +84,12 @@ export class PlayService {
       }
     });
 
+    this.loopCheckForRefresh = setInterval(this.checkToRefresh.bind(this), this.checkForRefreshEverySeconds*1000)
+
   }
 
-  initService(){
-    if (!this._init){
+  initService(forceReload=false){
+    if (!this._init || forceReload){
       this.data.socket.emit('device:get-playlist');
     }
   }
@@ -114,6 +130,21 @@ export class PlayService {
     }
   }
 
+  checkToRefresh(){
+    if (!this.lastTimeRefreshed){
+      return;
+    }
+    let now = moment().toDate();
+    let startDate = this.lastTimeRefreshed.toDate();
+    let ageInMin = (now.getTime()-startDate.getTime())/(1000*60);
+
+    if ( ageInMin > this.reloadWhenOlderThanMinutes){
+      location.reload();
+    }else{
+      console.log(`Last refresh ${ageInMin} ago.`)
+    }
+  }
+
   play(){
 
     let self = this;
@@ -127,7 +158,7 @@ export class PlayService {
 
   pause(){
     if (this.playTimer){
-      this.playTimer.pause();
+      this.playTimer.pause(); 
     }
   }
 

@@ -1,0 +1,19 @@
+.bulletslide-container{
+    height: 99vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .slide-title{
+        font-size: 4rem;
+        border-bottom: 1px solid black;
+        margin-bottom: 40px;
+    }
+
+    .bullet{
+        font-size: 2rem;
+        margin: 20px 0;
+        position:relative;
+    }
+
+}
