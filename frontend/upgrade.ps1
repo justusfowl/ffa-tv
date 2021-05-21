@@ -1,3 +1,4 @@
+ng update @angular/core@8 @angular/cli@8 --create-commits --force
 ng update @angular/core@9 @angular/cli@9 --create-commits --force
 ng update @angular/material@9 --create-commits --force
 ng update @angular/core@10 @angular/cli@10 --create-commits --force

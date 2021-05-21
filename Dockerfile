@@ -20,7 +20,7 @@ RUN npm install
 
 RUN cd /usr/app/frontend && npm install
 
-RUN npm install -g @angular/cli@8.3.14
+RUN npm install -g @angular/cli@12.0.1
 
 RUN cd /usr/app/frontend && ng build --prod
 
