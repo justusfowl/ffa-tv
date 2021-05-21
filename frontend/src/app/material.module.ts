@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import {
-    MatButtonModule, 
-    MatSnackBarModule,
-    MatProgressSpinnerModule
-  } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
   
   @NgModule({
     imports: [
